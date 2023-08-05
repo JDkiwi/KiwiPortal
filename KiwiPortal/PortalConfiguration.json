@@ -1,0 +1,9 @@
+{
+  "GridTaxCent": 6.2,
+  "AwattarCommissionPercent": 3,
+  "AwattarCommissionCent": 1.5,
+  "AwattarBaseFeeEuro": 4.73,
+  "ValueAddedTaxPercent": 20,
+  "PowerFlatRateEuro": 36.0,
+  "MeasurementFeeEuro": 28.8
+}

@@ -1,0 +1,124 @@
+﻿@page "/calculator"
+
+<PageTitle>Rechner</PageTitle>
+
+<div class="d-flex">
+    <div class="date-picker-container">
+        <span>Startdatum: </span>
+        <input type="date" @onchange="OnDateChanged"/>
+    </div>
+    <div class="date-picker-container">
+        <span>Enddatum: </span>
+        <input type="date" @onchange="OnSecondDateChanged"/>
+    </div>
+</div>
+
+@if (_loading)
+{
+    <div class="spinner-border text-primary" role="status"></div>
+}
+else
+{
+    <Chart Config="_lineChartConfig" />
+    
+    <div style="margin-top: 30px;">
+        <table>
+            <tr>
+                <td>
+                    Verbrauch:
+                </td>
+                <td>
+                    @($"{TotalConsumptionKwh:F2}") kWh
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Durchschnittspreis (Netto):
+                </td>
+                <td>
+                    @($"{AverageNetPriceCent:F2} Cent pro kWh")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Durchschnittspreis (All-In):
+                </td>
+                <td>
+                    @($"{AverageGrossAllInPriceCent:F2} Cent pro kWh")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Netzgebühr:
+                </td>
+                <td>
+                    @($"{_gridTaxCent:F2} Cent pro kWh")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Leistungspauschale:
+                </td>
+                <td>
+                    @($"{_powerFlatRateEuro:F2} € pro 365 Tage")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Messentgelt:
+                </td>
+                <td>
+                    @($"{_measurementFeeEuro:F2} € pro 365 Tage")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Anzahl Tage:
+                </td>
+                <td>
+                    @($"{TotalDays}")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Awattar Provision:
+                </td>
+                <td>
+                    @($"{_awattarCommissionPercent:F2} %")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Awattar Aufschlag:
+                </td>
+                <td>
+                    @($"{_awattarCommissionCent:F2} Cent pro kWh")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Awattar Grundgebühr:
+                </td>
+                <td>
+                    @($"{_awattarBaseFeeEuro:F2} € pro Monat")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    MwSt:
+                </td>
+                <td>
+                    @($"{_valueAddedTaxPercent:F2} %")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Gesamt Kosten:</b>
+                </td>
+                <td>
+                    <b>@($"{TotalGrossSumEuro:F2} €")</b>
+                </td>
+            </tr>
+        </table>
+    </div>
+}

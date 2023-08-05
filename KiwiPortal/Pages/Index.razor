@@ -1,0 +1,60 @@
+﻿@page "/"
+@using KiwiPortal.Services.GridOperators
+
+<PageTitle>Anmelden</PageTitle>
+
+@if (EnergyProviderService.LoggedIn)
+{
+    <h1>Angemeldet bei @_providers[(GridOperator) int.Parse(_provider)]!</h1>
+    <div class="m-2">
+        @if (!_loggingOut)
+        {
+            <button type="button" class="btn btn-primary" @onclick="@OnLogoutClicked">Abmelden</button>
+        }
+        else
+        {
+            <div class="spinner-border text-primary" role="status"></div>
+        }
+    </div>
+}
+else
+{
+    <h1>Bei Netz Anbieter anmelden:</h1>
+    <form>
+        <div class="m-2 form-group">
+            <label for="usernameInput">Benutzername</label>
+            <input type="text" class="form-control" id="usernameInput" placeholder="Benutzername" @bind="@_username">
+        </div>
+        <div class="m-2 form-group">
+            <label for="passwordInput">Passwort</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Passwort" @bind="@_password">
+        </div>
+        <div class="m-2 form-group">
+            <label for="providerInput">Netz Anbieter</label>
+            <select class="form-select" id="providerInput" aria-label="Netz Anbieter" @bind="_provider">
+                @foreach (var provider in _providers)
+                {
+                    <option value="@((int) provider.Key)">@provider.Value</option>
+                }
+            </select>
+        </div>
+        <div class="m-2">
+            @if (!_loggingIn)
+            {
+                <button type="button" class="btn btn-primary" @onclick="@OnLoginClicked">Anmelden</button>
+            }
+            else
+            {
+                <div class="spinner-border text-primary" role="status"></div>
+            }
+        </div>
+    
+        @if (_errorMessage is not null)
+        {
+            <div class="m-2 p-3 alert-danger border-danger" style="border-radius: 5px;">
+                <span>@_errorMessage</span>
+            </div>
+        }
+    </form>
+}
+
